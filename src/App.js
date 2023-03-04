@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import React from "react";
+import AddUser from "./components/userComponents/AddUser";
+import UserForm from "./components/userComponents/UserForm";
 
-function App() {
+const App = () => {
+  const [userData, setUserData] = useState([]);
+
+  const getUserData = (uName, uEmail, uPassword, uConfirmPassword, uid) => {
+    setUserData((prevState) => {
+      return [
+        ...prevState,
+        {
+          name: uName,
+          email: uEmail,
+          password: uPassword,
+          confirmPassword: uConfirmPassword,
+          uid: uid,
+        }
+      ];
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AddUser something={getUserData} />
+      <UserForm users={userData} />
     </div>
   );
-}
+};
 
 export default App;
